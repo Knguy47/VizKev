@@ -1,26 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <title>Sample "Hello, World" Application</title>
+    <link rel="stylesheet" href="styles.css">
   </head>
-  <body bgcolor=white>
-
-    <table border="0" cellpadding="10">
-      <tr>
-        <td>
-          <img src="images/springsource.png">
-        </td>
-        <td>
-          <h1>Sample "Hello, World" Application</h1>
-        </td>
-      </tr>
-    </table>
-
-    <p>This is the home page for the HelloWorld Web application. </p>
-    <p>To prove that they work, you can execute either of the following links:
-    <ul>
-      <li>To a <a href="hello.jsp">JSP page</a>.
-      <li>To a <a href="hello">servlet</a>.
-    </ul>
+  <body>
+    <div class="scoreboard">
+      <!-- Modify the scoreboard when important events occur in your game! -->
+      <div class="highscore">High score: <span>0</span></div>
+      <div class="current">Current score: <span>0</span></div>
+      <div class="collisions">Collisions: <span>0</span></div>
+    </div>
+    <div class="board"><div class="mouse"></div></div>
+    <script src="lib/d3.js" charset="utf-8"></script>
+    <script src='watchout.js'></script>
   </body>
 </html>

@@ -1,0 +1,31 @@
+/* your beautiful css styling goes here! */
+
+/* Note: an asteroid image is included in this repo.
+Feel free to use it if you like. */
+
+body{
+  position: relative;
+  background-image: url("space.jpg");
+  background-size: 100%;
+}
+
+div{
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 10px;
+  overflow: hidden;
+  border: none;
+  font: normal 70px/1 "VT323", Helvetica, sans-serif;
+  color: rgba(255,255,0,1);
+  text-align: center;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  text-shadow: 5px 5px 0 rgba(255,0,0,1) ;
+}
+
+.enemies{
+  background-image: url("asteroid.png");
+  background-size: 100;
+  position: relative;
+}
