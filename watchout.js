@@ -2,30 +2,30 @@
 //Hello
 
 ///////Initializes the state of the board////////
-var gameOptions = {
+let gameOptions = {
   'height': 700,
   'width': 1000,
   'numEnemies': 20,
   'padding': 40
 };
 
-var gameStats = {
+let gameStats = {
   'score': 0,
   'bestScore': 0,
   'collisions': 0
 };
 
 ///////Create the board for game////////////////
-var axes = {
+let axes = {
   'x': d3.scale.linear().domain([0, 100]).range([0, gameOptions.width]),
   'y': d3.scale.linear().domain([0, 100]).range([0, gameOptions.height])
 };
 
-var svg = d3.select('.board').append('svg')
+let svg = d3.select('.board').append('svg')
   .attr('width', gameOptions.width)
   .attr('height', gameOptions.height);
 
-var rect = svg.append('rect')
+let rect = svg.append('rect')
   .attr('class', 'newboard')
   .attr('width', gameOptions.width)
   .attr('height', gameOptions.height)
@@ -34,7 +34,7 @@ var rect = svg.append('rect')
 
 
 ///////Update the score and the bestscore///////
-var updateScore = function() {
+let updateScore = function() {
   if (gameStats.score > gameStats.bestScore) {
     gameStats.bestScore = gameStats.score;
   }
@@ -47,14 +47,14 @@ var updateScore = function() {
 
 
 ////////Added drag to Player///////////////////
-var dragMove = function() {
-  var x = d3.event.x;
-  var y = d3.event.y;
+let dragMove = function() {
+  let x = d3.event.x;
+  let y = d3.event.y;
   // Setting the min and max limits for player to stay inside the board
-  var minX = gameOptions.padding;
-  var maxX = gameOptions.width - gameOptions.padding;
-  var minY = gameOptions.padding;
-  var maxY = gameOptions.height - gameOptions.padding;
+  let minX = gameOptions.padding;
+  let maxX = gameOptions.width - gameOptions.padding;
+  let minY = gameOptions.padding;
+  let maxY = gameOptions.height - gameOptions.padding;
 
   if (x > maxX) {
     x = maxX;
@@ -70,12 +70,12 @@ var dragMove = function() {
   player.attr('cx', x).attr('cy', y);
 };
 
-var drag = d3.behavior.drag()
+let drag = d3.behavior.drag()
     .on('drag', dragMove);
 
 
 ///////Create player circle////////////////////
-var player = svg.append('circle')
+let player = svg.append('circle')
   .attr('class', 'player')
   .attr('cx', axes.x(50))
   .attr('cy', axes.y(50))
@@ -88,9 +88,9 @@ var player = svg.append('circle')
 
 ////////Data for all badGuys//////////////////
 
-var createDataArray = function(n) {
+let createDataArray = function(n) {
   return d3.range(n).map(function(ele) {
-    var results = {
+    let results = {
       'x': axes.x(Math.random() * 100),
       'y': axes.y(Math.random() * 100)
     };
@@ -98,9 +98,9 @@ var createDataArray = function(n) {
   });
 };
 
-var badGuyArray = createDataArray(gameOptions.numEnemies);
+let badGuyArray = createDataArray(gameOptions.numEnemies);
 
-var allEnemies = svg.selectAll('circle.enemies')
+let allEnemies = svg.selectAll('circle.enemies')
     .data(badGuyArray)
   .enter().append('circle')
     .attr('class', 'enemies')
@@ -109,7 +109,7 @@ var allEnemies = svg.selectAll('circle.enemies')
     .attr('r', 20)
     .style('fill', 'red');
 
-var moveEnemies = function(element) {
+let moveEnemies = function(element) {
   element
     .transition()
     .ease('linear')
@@ -121,9 +121,9 @@ var moveEnemies = function(element) {
     });
 };
 
-var blinkyArray = createDataArray(1);
+let blinkyArray = createDataArray(1);
 
-var blinky = svg.selectAll('circle.blinky')
+let blinky = svg.selectAll('circle.blinky')
   .data(blinkyArray)
   .enter().append('circle')
   .attr('class', 'blinky')
@@ -132,7 +132,7 @@ var blinky = svg.selectAll('circle.blinky')
   .attr('r', 10)
   .style('fill', 'white');
 
-var blinkDot = function() {
+let blinkDot = function() {
   blinky
     .transition()
     .duration(300)
@@ -145,20 +145,20 @@ var blinkDot = function() {
 };
 
 // Implements collision detections between player and enemies
-var prevEnemyCollision = false;
+let prevEnemyCollision = false;
 
 // Enemy Collision
-var detectCollision = function(arrayNodes, callback) {
-  var collision = false;
-  var playerCoords = {x: parseFloat(player.attr('cx')), y: parseFloat(player.attr('cy')), r: parseFloat(player.attr('r'))};
+let detectCollision = function(arrayNodes, callback) {
+  let collision = false;
+  let playerCoords = {x: parseFloat(player.attr('cx')), y: parseFloat(player.attr('cy')), r: parseFloat(player.attr('r'))};
 
   arrayNodes.each(function() {
-    var currentObj = d3.select(this);
+    let currentObj = d3.select(this);
 
-    var diffX = Math.abs(parseFloat(currentObj.attr('cx')) - playerCoords.x);
-    var diffY = Math.abs(parseFloat(currentObj.attr('cy')) - playerCoords.y);
-    var distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-    var sumRadius = parseFloat(currentObj.attr('r')) + playerCoords.r;
+    let diffX = Math.abs(parseFloat(currentObj.attr('cx')) - playerCoords.x);
+    let diffY = Math.abs(parseFloat(currentObj.attr('cy')) - playerCoords.y);
+    let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+    let sumRadius = parseFloat(currentObj.attr('r')) + playerCoords.r;
 
     if (distance < sumRadius) {
       // callback();
@@ -182,17 +182,17 @@ var detectCollision = function(arrayNodes, callback) {
 };
 
 // blinky Collision
-var detectBlinkyCollision = function(arrayNodes, callback) {
-  var collision = false;
-  var playerCoords = {x: parseFloat(player.attr('cx')), y: parseFloat(player.attr('cy')), r: parseFloat(player.attr('r'))};
+let detectBlinkyCollision = function(arrayNodes, callback) {
+  let collision = false;
+  let playerCoords = {x: parseFloat(player.attr('cx')), y: parseFloat(player.attr('cy')), r: parseFloat(player.attr('r'))};
 
   arrayNodes.each(function() {
-    var currentObj = d3.select(this);
+    let currentObj = d3.select(this);
 
-    var diffX = Math.abs(parseFloat(currentObj.attr('cx')) - playerCoords.x);
-    var diffY = Math.abs(parseFloat(currentObj.attr('cy')) - playerCoords.y);
-    var distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-    var sumRadius = parseFloat(currentObj.attr('r')) + playerCoords.r;
+    let diffX = Math.abs(parseFloat(currentObj.attr('cx')) - playerCoords.x);
+    let diffY = Math.abs(parseFloat(currentObj.attr('cy')) - playerCoords.y);
+    let distance = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+    let sumRadius = parseFloat(currentObj.attr('r')) + playerCoords.r;
 
     if (distance < sumRadius) {
       // callback();
@@ -207,18 +207,18 @@ var detectBlinkyCollision = function(arrayNodes, callback) {
 };
 
 
-var enemyCollision = function() {
+let enemyCollision = function() {
   gameStats.score = 0;
 };
 
-var blinkyCollision = function() {
-  var x = axes.x(Math.random() * 100);
-  var y = axes.y(Math.random() * 100);
+let blinkyCollision = function() {
+  let x = axes.x(Math.random() * 100);
+  let y = axes.y(Math.random() * 100);
 
-  var minX = gameOptions.padding;
-  var maxX = gameOptions.width - gameOptions.padding;
-  var minY = gameOptions.padding;
-  var maxY = gameOptions.height - gameOptions.padding;
+  let minX = gameOptions.padding;
+  let maxX = gameOptions.width - gameOptions.padding;
+  let minY = gameOptions.padding;
+  let maxY = gameOptions.height - gameOptions.padding;
 
   if (x > maxX) {
     x = maxX;
